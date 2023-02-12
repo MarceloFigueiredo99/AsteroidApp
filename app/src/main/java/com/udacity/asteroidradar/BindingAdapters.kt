@@ -23,8 +23,12 @@ fun bindAsteroidDate(textView: TextView, item: Asteroid) {
 fun bindAsteroidStatusImage(imageView: ImageView, item: Asteroid) {
     if (item.isPotentiallyHazardous) {
         imageView.setImageResource(R.drawable.ic_status_potentially_hazardous)
+        imageView.contentDescription =
+            imageView.context.getString(R.string.potentially_hazardous_asteroid_image)
     } else {
         imageView.setImageResource(R.drawable.ic_status_normal)
+        imageView.contentDescription =
+            imageView.context.getString(R.string.not_hazardous_asteroid_image)
     }
 }
 

@@ -14,3 +14,11 @@ fun getTodayDate(): String {
 fun getNextSevenDays(): String {
     return current.plusDays(7).format(formatter)
 }
+
+fun getTomorrowDate(): String {
+    return current.plusDays(1).format(formatter)
+}
+
+fun getNextEightDays(): String {
+    return current.plusDays(8).format(formatter)
+}

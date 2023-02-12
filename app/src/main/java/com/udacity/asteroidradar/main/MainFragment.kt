@@ -52,6 +52,9 @@ class MainFragment : Fragment() {
             viewModel.updatePicture(binding.activityMainImageOfTheDay, requireContext())
         })
 
+        // Set default asteroids list as the week asteroids
+        viewModel.loadData(R.id.show_week)
+
         observeAsteroidsList()
 
         return binding.root
@@ -64,7 +67,7 @@ class MainFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         Log.i("MainFragment", "Option selected")
-        viewModel.updateList(item.itemId)
+        viewModel.loadData(item.itemId)
         observeAsteroidsList()
         return true
     }

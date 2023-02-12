@@ -2,10 +2,8 @@ package com.udacity.asteroidradar.api
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.udacity.asteroidradar.Constants
+import com.udacity.asteroidradar.*
 import com.udacity.asteroidradar.domain.PictureOfDay
-import com.udacity.asteroidradar.getNextSevenDays
-import com.udacity.asteroidradar.getTodayDate
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -26,9 +24,10 @@ private val retrofit = Retrofit.Builder()
 interface AsteroidApiService {
     @GET("/neo/rest/v1/feed")
     suspend fun getAsteroids(
-        // Fetch asteroids from today onwards
-        @Query("start_date") startDate: String = getTodayDate(),
-        @Query("end_date") endDate: String = getNextSevenDays(),
+        // Fetch asteroids from next seven days, Start Date = TODAY + 1, End Data = TODAY + 8,
+        // So it only fetches asteroids from the next 7 days, excluding today's asteroids
+        @Query("start_date") startDate: String = getTomorrowDate(),
+        @Query("end_date") endDate: String = getNextEightDays(),
         @Query("api_key") apiKey: String = Constants.API_KEY
     ): Response<String>
 

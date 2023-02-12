@@ -70,11 +70,17 @@ class AsteroidsRepository(private val database: AsteroidsDatabase) {
         return database.asteroidDao.getAsteroids()
     }
 
-    fun setAsteroids(itemId: Int) {
-        when (itemId) {
-            R.id.show_today -> transformAsteroids(getTodayAsteroids())
-            R.id.show_week -> transformAsteroids(getWeekAsteroids())
-            R.id.show_saved -> transformAsteroids(getSavedAsteroids())
+    fun getItem(id: Int?): LiveData<List<Asteroid>> {
+        var filter: LiveData<List<DatabaseAsteroid>> = when (id) {
+            R.id.show_today -> getTodayAsteroids()
+            R.id.show_saved -> getSavedAsteroids()
+            else -> {
+                getWeekAsteroids()
+            }
+        }
+
+        return Transformations.map(filter) {
+            it.asDomainModel()
         }
     }
 }
